@@ -1,3 +1,8 @@
+library(tximport)# chamando a função tximport
+library("DESeq2")# chamando a função DESeq2
+library(ggplot2)# chamando a função ggplot2
+library(readr)
+
 setwd("D:/Helba/Salmon/SP78/SP78-X")
 caminho_pasta <- "D:/Helba/Salmon/SP78/SP78-X"
 arquivos <- list.files(path = caminho_pasta, pattern = "*.sf", full.names = TRUE)
