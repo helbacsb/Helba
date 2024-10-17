@@ -1,3 +1,6 @@
+#script disponibilizado pelo programa Trinity para construir um gráfico de violino a partir do arquivo bam gerado a partir do mapeamento dos reads brutos nos contigs montados
+#eu converti dias variáveis para numericas e gero o grafico em svg
+
 #!/usr/bin/env Rscript
 
 args<-commandArgs(TRUE)
@@ -129,7 +132,7 @@ data = read.table("X:/Usuarios_GaTE/helba/Dados_processados/REMONTAGEM - em trip
 data = data[rev(order(data$total_reads)),] # just to be sure they're in descending order of total counts.
 
 sum_reads = sum(data$total_reads)
-c = cumsum(as.numeric(data$total_reads))
+c = cumsum(as.numeric(data$total_reads)) #alterei aqui
 
 cuts = list()
 cutnames = c()
@@ -161,15 +164,17 @@ if (length(cut50) > 0) {
     cutnames = c(cutnames, '50%')
 }
 
-#cut100 = as.numeric(data$diff_ratio)
-#cuts = append(cuts, list(cut100))
-#cutnames = c(cutnames, '100%')
+cut100 = as.numeric(data$diff_ratio) #alterei aqui
+cuts = append(cuts, list(cut100))
+cutnames = c(cutnames, '100%')
             
 
 
-plot_filename = paste0(dat_filename, ".vioplot.pdf")
-pdf(plot_filename)
+#plot_filename = paste0(dat_filename, ".vioplot.pdf")
+#pdf(plot_filename)
 
+plot_filename = paste0(dat_filename, ".vioplot.svg") #alterei aqui
+svg(plot_filename) #alterei aqui
 
 vioplot2(cuts, names=cutnames, ylim=c(-1,1))
 
