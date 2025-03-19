@@ -5,20 +5,20 @@ Inclusao de Bibliotecas
 #include <stdlib.h>
 #include <ctype.h>
 
-/******* Funcões Utilizadas     *********/
+/******* FuncÃµes Utilizadas     *********/
 
-int valida(FILE *arquivo); // verifica se o que tem no arquivo são nucleotídeos 
+int valida(FILE *arquivo); // verifica se o que tem no arquivo sÃ£o nucleotÃ­deos 
 void contaSeqPadrao(FILE *arquivo, int *contS, int *contP);//conta caracteres de um arquivo
-void MontaVetor(FILE *arquivo, char vetSeq[], char vetPad[]);//Coloca a sequência e o padrão em vetores
-void imprimeVetor(char vet[], int n);//utilizada para imprimir o vetor da sequência e do padrão
+void MontaVetor(FILE *arquivo, char vetSeq[], char vetPad[]);//Coloca a sequÃªncia e o padrÃ£o em vetores
+void imprimeVetor(char vet[], int n);//utilizada para imprimir o vetor da sequÃªncia e do padrÃ£o
 void funcaoPrefixo(int pi[], char p[], int tamP);/*encontra deslocamentos que
     podem ser seguramente descartados */
 void KMP(char vetSeq[], char vetPad[],int pi[], int conts, int contp,
    int inx_desl[],int *cont_inx); /* KMP(s,p):recebe um texto s de n simbolos e
-    um padrão p de m simbolos e realiza a comparação de s e p, devolvendo os 
+    um padrÃ£o p de m simbolos e realiza a comparaÃ§Ã£o de s e p, devolvendo os 
     indices em s onde p ocorre.*/
 void localizaPadrao(char vetSeq[], int conts, int inx_desl[],int *cont_inx);
-   //localiza o padrão dentro da sequência
+   //localiza o padrÃ£o dentro da sequÃªncia
 
 
 /******    funcao principal   ************/
@@ -26,19 +26,19 @@ int main(){
     FILE *arq;    //declara um ponteiro de arquivo
     char *vetSeq; //Armazena a sequencia neste vetor
     char *vetPad; //Armazena o padrao neste vetor 
-    int *pi;      //Armazena o resultado do alinhamento do padrão com ele próprio
-    int conts=0;  //Armazena o tamanho da sequência
-    int contp=0;  //Armazena o tamanho do padrão
+    int *pi;      //Armazena o resultado do alinhamento do padrÃ£o com ele prÃ³prio
+    int conts=0;  //Armazena o tamanho da sequÃªncia
+    int contp=0;  //Armazena o tamanho do padrÃ£o
     //--------variaveis utilizadas nas funcoes KMP e localizaPadrao
-    int inx_desl[10]; //perguntar ao Ivairton
+    int inx_desl[10]; //perguntar 
     int cont_inx=0;   //perguntar ao Ivairton
     
     arq = fopen("dado.txt", "r");//abre o arquivo para leitura
-    if(valida(arq)==0) //verifica se a sequencia é válida
+    if(valida(arq)==0) //verifica se a sequencia Ã© vÃ¡lida
         printf("Sequencia invalida\n");
     else{
-        rewind(arq); //recoloca o indicador de posição de arquivo do inicio do arquivo
-        contaSeqPadrao(arq, &conts, &contp);//chamando a função contaSeqPadrao
+        rewind(arq); //recoloca o indicador de posiÃ§Ã£o de arquivo do inicio do arquivo
+        contaSeqPadrao(arq, &conts, &contp);//chamando a funÃ§Ã£o contaSeqPadrao
         rewind(arq); 
         vetSeq = (char*)malloc(conts*sizeof(char));
         vetPad = (char*)malloc(contp*sizeof(char));
@@ -64,9 +64,9 @@ int main(){
      return 0;
 }
 /*******funcoes utilizadas***********/
-/*A função valida verifica se as sequencias contem somente
-os caracteres válidos, ou seja, A, C, T ou G.
-O P é incluido pra sinalizar o inicio do padrao.*/
+/*A funÃ§Ã£o valida verifica se as sequencias contem somente
+os caracteres vÃ¡lidos, ou seja, A, C, T ou G.
+O P Ã© incluido pra sinalizar o inicio do padrao.*/
 
 int valida(FILE *arquivo){
     char ch;
@@ -75,9 +75,9 @@ int valida(FILE *arquivo){
     while ((ch = getc(arquivo))!= EOF){
         ch = toupper(ch);
         if((ch!='A') && (ch!='C') && (ch!='T')&&(ch!='G')&&(ch!='P')&&(ch!='\n'))
-            return 0;// Se diferente os caracteres não são nucleotideos
+            return 0;// Se diferente os caracteres nÃ£o sÃ£o nucleotideos
         if(ch=='P') cont++;//contando os P's da sequencia
-        if(cont>1) return 0; //não pode haver mais de um P
+        if(cont>1) return 0; //nÃ£o pode haver mais de um P
     }
     return 1;
 }
@@ -116,14 +116,14 @@ void imprimeVetor(char vet[], int n){
          printf("%c", vet[i]);
      printf("\n");
 }    
-//FunçãoPrefixo(p) recebe uma sequência p de m símbolos e devolve a função prefixo 'pi' para p.
+//FunÃ§Ã£oPrefixo(p) recebe uma sequÃªncia p de m sÃ­mbolos e devolve a funÃ§Ã£o prefixo 'pi' para p.
 void funcaoPrefixo(int pi[], char p[], int tamP){
     int k=0;
     int q;
     pi[0]=0;
     for(q=1; q<tamP ;q++){
        while(k>0 && (p[k]!= p[q])) k=pi[k-1];
-           if(p[k]==p[q]) k++;  //para os casos que não se encaixam na condição do while
+           if(p[k]==p[q]) k++;  //para os casos que nÃ£o se encaixam na condiÃ§Ã£o do while
            pi[q]=k;
        }
 }
